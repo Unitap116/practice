@@ -8,5 +8,5 @@ public interface CardService {
 
     CardResponse getById(UUID cardId);
 
-    String getQrById(UUID cardId);
+    byte[] getQrById(UUID cardId);
 }

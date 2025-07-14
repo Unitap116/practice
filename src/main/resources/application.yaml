@@ -1,0 +1,3 @@
+qr:
+  link-pattern: https://unitap.ru/card/%s # сеттим через .formatted() у класса String
+

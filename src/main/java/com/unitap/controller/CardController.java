@@ -3,10 +3,9 @@ package com.unitap.controller;
 import com.unitap.dto.response.CardResponse;
 import com.unitap.service.impl.BaseCardService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -17,13 +16,15 @@ public class CardController {
 
     private final BaseCardService cardService;
 
-    @GetMapping("/{cardId}")
-    public CardResponse getCard(@PathVariable UUID cardId) {
-        return cardService.getById(cardId);
+    @GetMapping("/{userId}")
+    @ResponseStatus(HttpStatus.OK)
+    public CardResponse getCard(@PathVariable UUID userId) {
+        return cardService.getById(userId);
     }
 
-    @GetMapping("/{cardId}/qr")
-    public String getCardQr(@PathVariable UUID cardId) {
-        return cardService.getQrById(cardId);
+    @GetMapping(value = "/{userId}/qr", produces = MediaType.IMAGE_PNG_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public byte[] getCardQr(@PathVariable UUID userId) {
+        return cardService.getQrById(userId);
     }
 }
