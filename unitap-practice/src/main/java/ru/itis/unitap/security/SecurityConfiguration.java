@@ -1,0 +1,135 @@
+package ru.itis.unitap.security;
+
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
+import com.auth0.jwt.algorithms.Algorithm;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.RequestMatcher;
+import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
+import ru.itis.unitap.security.jwt.filter.LoginAuthenticationFilter;
+import ru.itis.unitap.security.jwt.filter.RefreshAuthenticationFilter;
+import ru.itis.unitap.security.jwt.filter.TokenAuthenticationFilter;
+import ru.itis.unitap.security.jwt.matcher.SkipPathRequestMatcher;
+import ru.itis.unitap.security.jwt.service.JwtGenerationService;
+
+import java.util.List;
+
+@Configuration
+@EnableWebSecurity
+public class SecurityConfiguration {
+
+    @Bean
+    public SecurityFilterChain securityFilterChain
+            (HttpSecurity http,
+             LoginAuthenticationFilter loginAuthenticationFilter,
+             TokenAuthenticationFilter tokenAuthenticationFilter,
+             RefreshAuthenticationFilter refreshAuthenticationFilter) throws Exception {
+
+        HttpSecurity httpSecurity = http
+                .securityMatcher("/api/**")
+                .addFilterAt(tokenAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(refreshAuthenticationFilter, TokenAuthenticationFilter.class)
+                .addFilterAt(loginAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/api/v1/login", "/api/v1/refresh").permitAll()
+                        .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/api/v1/register").anonymous()
+                        .anyRequest().authenticated())
+                .sessionManagement(AbstractHttpConfigurer::disable)
+                .csrf(AbstractHttpConfigurer::disable);
+
+        return httpSecurity.build();
+    }
+
+    @Bean
+    public LoginAuthenticationFilter loginAuthenticationFilter(
+            AuthenticationManager authenticationManager,
+            @Qualifier("tokenAuthenticationSuccessHandler") AuthenticationSuccessHandler successHandler,
+            AuthenticationFailureHandler failureHandler) {
+        return new LoginAuthenticationFilter(
+                "/api/v1/login", authenticationManager, successHandler, failureHandler);
+    }
+
+    @Bean
+    public TokenAuthenticationFilter tokenAuthenticationFilter(
+            JwtGenerationService jwtService,
+            AuthenticationManager authenticationManager,
+            AuthenticationFailureHandler failureHandler) {
+        RequestMatcher requestMatcher = new SkipPathRequestMatcher("/api/v1/login", "/api/v1/refresh", "/api/v1/register");
+
+        return new TokenAuthenticationFilter(
+                requestMatcher, jwtService, authenticationManager, failureHandler);
+    }
+
+
+    @Bean
+    public RefreshAuthenticationFilter refreshAuthenticationFilter(
+            AuthenticationManager authenticationManager,
+            JwtGenerationService jwtService,
+            @Qualifier("tokenAuthenticationSuccessHandler") AuthenticationSuccessHandler refreshSuccessHandler,
+            AuthenticationFailureHandler failureHandler) {
+        return new RefreshAuthenticationFilter(
+                "/api/v1/refresh", authenticationManager, jwtService, refreshSuccessHandler, failureHandler);
+    }
+
+
+    @Bean
+    public AuthenticationManager providerManager(List<AuthenticationProvider> providers) {
+        return new ProviderManager(providers);
+    }
+
+    @Bean
+    public DaoAuthenticationProvider daoAuthenticationProvider(
+            PasswordEncoder passwordEncoder,
+            UserDetailsService userDetailsService) {
+        var provider = new DaoAuthenticationProvider(passwordEncoder);
+
+        provider.setUserDetailsService(userDetailsService);
+
+        return provider;
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public Algorithm algorithm(@Value("${jwt.secret}") String secret) {
+        return Algorithm.HMAC256(secret);
+    }
+
+    @Bean
+    public JWTVerifier jwtVerifier(Algorithm algorithm) {
+        return JWT.require(algorithm).build();
+    }
+
+    @Bean
+    public AuthenticationFailureHandler authenticationFailureHandler() {
+        return new SimpleUrlAuthenticationFailureHandler();
+    }
+
+    @Bean
+    public HandlerMappingIntrospector handlerMappingIntrospector() {
+        return new HandlerMappingIntrospector();
+    }
+
+}
