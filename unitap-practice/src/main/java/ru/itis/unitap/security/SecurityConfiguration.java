@@ -22,12 +22,10 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.util.matcher.RequestMatcher;
-import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 import ru.itis.unitap.security.jwt.filter.LoginAuthenticationFilter;
 import ru.itis.unitap.security.jwt.filter.RefreshAuthenticationFilter;
 import ru.itis.unitap.security.jwt.filter.TokenAuthenticationFilter;
-import ru.itis.unitap.security.jwt.matcher.SkipPathRequestMatcher;
+import ru.itis.unitap.security.jwt.matcher.ProcessingRequestMatcher;
 import ru.itis.unitap.security.jwt.service.JwtGenerationService;
 
 import java.util.List;
@@ -44,12 +42,18 @@ public class SecurityConfiguration {
              RefreshAuthenticationFilter refreshAuthenticationFilter) throws Exception {
 
         HttpSecurity httpSecurity = http
-                .securityMatcher("/api/**")
+                .securityMatcher("/**")
                 .addFilterAt(tokenAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(refreshAuthenticationFilter, TokenAuthenticationFilter.class)
                 .addFilterAt(loginAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/v1/login", "/api/v1/refresh").permitAll()
+                        .requestMatchers(
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**",
+                                "/swagger-ui.html",
+                                "/swagger-resources/**",
+                                "/webjars/**"
+                        ).permitAll()
                         .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
                         .requestMatchers("/api/v1/register").anonymous()
                         .anyRequest().authenticated())
@@ -73,7 +77,17 @@ public class SecurityConfiguration {
             JwtGenerationService jwtService,
             AuthenticationManager authenticationManager,
             AuthenticationFailureHandler failureHandler) {
-        RequestMatcher requestMatcher = new SkipPathRequestMatcher("/api/v1/login", "/api/v1/refresh", "/api/v1/register");
+
+        ProcessingRequestMatcher requestMatcher =
+                new ProcessingRequestMatcher("/api/v1/login",
+                        "/api/v1/refresh",
+                        "/api/v1/register",
+                        "/swagger-ui/**",
+                        "/v3/api-docs/**",
+                        "/swagger-ui.html",
+                        "/swagger-resources/**",
+                        "/webjars/**",
+                        "/favicon.ico");
 
         return new TokenAuthenticationFilter(
                 requestMatcher, jwtService, authenticationManager, failureHandler);
@@ -125,11 +139,6 @@ public class SecurityConfiguration {
     @Bean
     public AuthenticationFailureHandler authenticationFailureHandler() {
         return new SimpleUrlAuthenticationFailureHandler();
-    }
-
-    @Bean
-    public HandlerMappingIntrospector handlerMappingIntrospector() {
-        return new HandlerMappingIntrospector();
     }
 
 }
