@@ -1,0 +1,11 @@
+spring:
+  cloud:
+    gcp:
+      project-id: unitap-practice
+
+jwt:
+  secret: test
+  access-token:
+    ttl: 123
+  refresh-token:
+    ttl: 123456

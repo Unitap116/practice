@@ -6,11 +6,12 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.apache.http.entity.ContentType;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
+import ru.itis.unitap.dictionary.UserRole;
 import ru.itis.unitap.dto.JwtRefreshTokenDto;
 import ru.itis.unitap.dto.JwtTokenPairDto;
+import ru.itis.unitap.security.details.UserDetailsImpl;
 import ru.itis.unitap.security.jwt.service.JwtGenerationService;
 import ru.itis.unitap.security.jwt.service.JwtRefreshTokenService;
 import ru.itis.unitap.util.JsonUtil;
@@ -30,8 +31,11 @@ public class TokenAuthenticationSuccessHandler implements AuthenticationSuccessH
             HttpServletResponse response,
             Authentication authentication) throws IOException, ServletException {
 
-        String username = ((UserDetails) authentication.getPrincipal()).getUsername();
-        JwtTokenPairDto tokenPair = jwtService.getTokenPair(username);
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        String username = userDetails.getUsername();
+        UserRole role = userDetails.getUser().getRole();
+
+        JwtTokenPairDto tokenPair = jwtService.getTokenPair(username, role);
 
         JwtRefreshTokenDto refreshDto = new JwtRefreshTokenDto()
                 .setToken(tokenPair.getRefreshToken())

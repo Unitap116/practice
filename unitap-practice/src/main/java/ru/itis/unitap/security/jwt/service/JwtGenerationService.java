@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Service;
+import ru.itis.unitap.dictionary.UserRole;
 import ru.itis.unitap.dto.JwtTokenPairDto;
 
 import java.time.Instant;
@@ -26,6 +27,7 @@ public class JwtGenerationService {
 
     private static final String USERNAME_CLAIM = "username";
     private static final String TYPE_CLAIM = "type";
+    private static final String ROLE_CLAIM = "role";
 
     @Value("${jwt.access-token.ttl}")
     private Long accessTokenTtl;
@@ -35,17 +37,18 @@ public class JwtGenerationService {
     private final Algorithm algorithm;
     private final JWTVerifier jwtVerifier;
 
-    public JwtTokenPairDto getTokenPair(String username) {
+    public JwtTokenPairDto getTokenPair(String username, UserRole role) {
         return new JwtTokenPairDto(
-                createAccessToken(username),
+                createAccessToken(username, role),
                 createRefreshToken(username));
     }
 
-    private String createAccessToken(String username) {
+    private String createAccessToken(String username, UserRole role) {
         return JWT.create()
                 .withExpiresAt(new Date(System.currentTimeMillis() + accessTokenTtl))
                 .withClaim(USERNAME_CLAIM, username)
                 .withClaim(TYPE_CLAIM, "access")
+                .withClaim(ROLE_CLAIM, role.name())
                 .sign(algorithm);
     }
 

@@ -5,13 +5,10 @@ spring:
     gcp:
       project-id: ${FIREBASE_PROJECT_ID}
       credentials:
-        location: classpath:unitap-firebase-key.json
+        location: ${GOOGLE_CREDENTIALS_LOCATION:classpath:unitap-firebase-key.json}
 jwt:
   secret: ${JWT_SECRET}
   access-token:
     ttl: ${JWT_ACCESS_TTL}
   refresh-token:
     ttl: ${JWT_REFRESH_TTL}
-springdoc:
-  swagger-ui:
-    path: /swagger-ui.html
