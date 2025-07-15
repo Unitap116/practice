@@ -4,6 +4,7 @@ import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.QuerySnapshot;
+import com.google.cloud.firestore.WriteResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
@@ -41,4 +42,35 @@ public class ProfileRepositoryImpl implements ProfileRepository {
       throw new RuntimeException(e);
     }
   }
+
+  @Override
+  public ProfileEntity save(ProfileEntity profileEntity) {
+    try {
+      ApiFuture<QuerySnapshot> queryFuture = firestore.collection(collectionName)
+        .whereEqualTo("id", profileEntity.getId())
+        .get();
+
+      QuerySnapshot snapshot = queryFuture.get();
+
+      String documentId;
+      if (!snapshot.isEmpty()) {
+        documentId = snapshot.getDocuments().getFirst().getId();
+      } else {
+        documentId = UUID.randomUUID().toString();
+      }
+
+      ApiFuture<WriteResult> writeFuture =
+        firestore.collection(collectionName)
+          .document(documentId)
+          .set(profileEntity);
+
+      writeFuture.get();
+
+      return profileEntity;
+
+    } catch (InterruptedException | ExecutionException e) {
+      throw new RuntimeException("Failed to save profile: " + e.getMessage(), e);
+    }
+  }
+
 }

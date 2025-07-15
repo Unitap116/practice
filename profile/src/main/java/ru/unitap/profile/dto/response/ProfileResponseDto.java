@@ -1,4 +1,4 @@
-package ru.unitap.profile.dto;
+package ru.unitap.profile.dto.response;
 
 import java.util.UUID;
 
