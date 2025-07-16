@@ -9,6 +9,8 @@ import org.mapstruct.Mapper;
 public interface CardMapper {
 
     Card toEntity(CardRequest cardRequest);
+
+
     CardResponse toResponse(Card card);
 
 }

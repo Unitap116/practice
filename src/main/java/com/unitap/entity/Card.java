@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 public class Card {
 
     @DocumentId
-    private String cardId;
+    private String userId;
 
     private String name;
     private Boolean isPublic;

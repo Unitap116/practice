@@ -2,11 +2,9 @@ package com.unitap.service;
 
 import com.unitap.dto.response.CardResponse;
 
-import java.util.UUID;
-
 public interface CardService {
 
-    CardResponse getById(String cardId);
+    CardResponse getById(String userId);
 
-    byte[] getQrById(String cardId);
+    byte[] getQrById(String userId);
 }
