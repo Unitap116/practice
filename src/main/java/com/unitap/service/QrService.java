@@ -4,5 +4,5 @@ import java.util.UUID;
 
 public interface QrService {
 
-    byte[] generateQr(UUID cardId, String text);
+    byte[] generateQr(UUID userId, String text);
 }

@@ -21,7 +21,7 @@ public class BaseQrService implements QrService {
     private final QrProperties qrProperties;
 
     @Override
-    public byte[] generateQr(UUID cardId, String content) {
+    public byte[] generateQr(UUID userId, String content) {
         MultiFormatWriter writer = new MultiFormatWriter();
         try {
             BitMatrix matrix = writer.encode(
@@ -36,7 +36,7 @@ public class BaseQrService implements QrService {
             return outputStream.toByteArray();
         } catch (WriterException
                 | IOException e) {
-            throw new GenerateQrException(cardId);
+            throw new GenerateQrException(userId);
         }
     }
 }

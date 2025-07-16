@@ -27,10 +27,10 @@ public class BaseCardService implements CardService {
     }
 
     @Override
-    public byte[] getQrById(UUID cardId) {
+    public byte[] getQrById(UUID userId) {
         /* TODO implement method */
         String content = "";
-        return qrService.generateQr(cardId, content);
+        return qrService.generateQr(userId, content);
     }
 
 
