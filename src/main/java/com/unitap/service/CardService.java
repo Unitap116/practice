@@ -6,7 +6,7 @@ import java.util.UUID;
 
 public interface CardService {
 
-    CardResponse getById(UUID cardId);
+    CardResponse getById(String cardId);
 
-    byte[] getQrById(UUID cardId);
+    byte[] getQrById(String cardId);
 }

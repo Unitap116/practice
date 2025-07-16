@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
@@ -21,9 +20,12 @@ public class BaseQrService implements QrService {
     private final QrProperties qrProperties;
 
     @Override
-    public byte[] generateQr(UUID userId, String content) {
+    public byte[] generateQr(String userId) {
+        try { /* TODO put in aspects */
         MultiFormatWriter writer = new MultiFormatWriter();
-        try {
+
+        String content = qrProperties.getLinkPattern().formatted(userId); // https://unitap.ru/card/%s -> https://unitap.ru/card/{userId}
+
             BitMatrix matrix = writer.encode(
                     content,
                     BarcodeFormat.QR_CODE,
@@ -35,7 +37,7 @@ public class BaseQrService implements QrService {
 
             return outputStream.toByteArray();
         } catch (WriterException
-                | IOException e) {
+                | IOException e) { /* TODO put in aspects */
             throw new GenerateQrException(userId);
         }
     }

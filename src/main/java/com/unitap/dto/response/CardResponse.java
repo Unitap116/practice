@@ -1,9 +1,9 @@
 package com.unitap.dto.response;
 
-import java.util.UUID;
-
 public record CardResponse(
-        UUID id,
-        String name
+        String id,
+        String name,
+        Boolean isPublic,
+        Long views
 ) {
 }

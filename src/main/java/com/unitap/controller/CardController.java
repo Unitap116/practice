@@ -7,8 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.UUID;
-
 @RequiredArgsConstructor
 @RequestMapping("/card")
 @RestController
@@ -18,13 +16,13 @@ public class CardController {
 
     @GetMapping("/{userId}")
     @ResponseStatus(HttpStatus.OK)
-    public CardResponse getCard(@PathVariable UUID userId) {
+    public CardResponse getCard(@PathVariable String userId) {
         return cardService.getById(userId);
     }
 
     @GetMapping(value = "/{userId}/qr", produces = MediaType.IMAGE_PNG_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public byte[] getCardQr(@PathVariable UUID userId) {
+    public byte[] getCardQr(@PathVariable String userId) {
         return cardService.getQrById(userId);
     }
 }
