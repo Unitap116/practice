@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.unitap.profile.dto.request.AvatarUploadRequestDto;
-import ru.unitap.profile.dto.response.ProfileResponseDto;
 import ru.unitap.profile.dto.request.ProfileUpdateRequestDto;
+import ru.unitap.profile.dto.response.ProfileResponseDto;
 import ru.unitap.profile.service.ProfileService;
 
 import java.util.UUID;
