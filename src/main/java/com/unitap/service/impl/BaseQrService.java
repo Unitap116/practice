@@ -21,7 +21,7 @@ public class BaseQrService implements QrService {
 
     @Override
     public byte[] generateQr(String userId) {
-        try { /* TODO put in aspects */
+        try {
         MultiFormatWriter writer = new MultiFormatWriter();
 
         String content = qrProperties.getLinkPattern().formatted(userId); // https://unitap.ru/card/%s -> https://unitap.ru/card/{userId}
@@ -37,7 +37,7 @@ public class BaseQrService implements QrService {
 
             return outputStream.toByteArray();
         } catch (WriterException
-                | IOException e) { /* TODO put in aspects */
+                | IOException e) {
             throw new GenerateQrException(userId);
         }
     }

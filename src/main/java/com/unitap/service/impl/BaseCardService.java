@@ -5,6 +5,8 @@ import com.google.cloud.firestore.FieldValue;
 import com.google.cloud.firestore.Firestore;
 import com.unitap.dto.response.CardResponse;
 import com.unitap.entity.Card;
+import com.unitap.exception.card.CardAccessDeniedException;
+import com.unitap.exception.card.CardNotFoundException;
 import com.unitap.exception.card.RetrieveCardFromFirebaseException;
 import com.unitap.mapper.CardMapper;
 import com.unitap.service.CardService;
@@ -28,25 +30,25 @@ public class BaseCardService implements CardService {
 
     @Override
     public CardResponse getById(String userId) {
-        try { /* TODO put in aspects */
-            log.info("Running getById method for user with id: {}", userId); /* TODO put in aspects */
+        try {
             DocumentReference cardReference = firestore.collection(FirebaseConstants.BUSINESS_CARDS_COLLECTION_NAME)
                     .document(userId);
 
             Card card = cardReference.get().get().toObject(Card.class);
+
+            if (card == null) {throw new CardNotFoundException(userId);}
+            if (!card.getIsPublic()) {throw new CardAccessDeniedException(userId);}
+
             cardReference.update(FirebaseConstants.BUSINESS_CARDS_VIEWS_FIELD_NAME, FieldValue.increment(1));
 
-            log.info("GetById method successfully finished with userId: {}", userId); /* TODO put in aspects */
             return cardMapper.toResponse(card);
-        } catch (InterruptedException | ExecutionException e) { /* TODO put in aspects */
-            log.error("Exception during running getById method for user with id: {}", userId);
+        } catch (InterruptedException | ExecutionException e) {
             throw new RetrieveCardFromFirebaseException(userId);
         }
     }
 
     @Override
     public byte[] getQrById(String userId) {
-        log.info("Running getQrById method for user with id: {}", userId); /* TODO put in aspects */
         return qrService.generateQr(userId);
     }
 }
