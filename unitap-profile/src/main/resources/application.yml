@@ -6,6 +6,8 @@ firestore:
   path: ${PATH_TO_JSON}
   collection:
     profile: profiles
+    business-card: business_card
+    template: template
 
 locale:
   basename: messages

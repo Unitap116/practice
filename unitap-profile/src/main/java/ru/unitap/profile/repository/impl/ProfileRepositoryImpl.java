@@ -72,5 +72,4 @@ public class ProfileRepositoryImpl implements ProfileRepository {
       throw new RuntimeException("Failed to save profile: " + e.getMessage(), e);
     }
   }
-
 }
