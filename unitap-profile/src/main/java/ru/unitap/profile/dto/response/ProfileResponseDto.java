@@ -1,7 +1,10 @@
 package ru.unitap.profile.dto.response;
 
+import lombok.Builder;
+
 import java.util.UUID;
 
+@Builder
 public record ProfileResponseDto(
   UUID id,
   String fullName,
