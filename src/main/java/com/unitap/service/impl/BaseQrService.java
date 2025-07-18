@@ -22,9 +22,9 @@ public class BaseQrService implements QrService {
     @Override
     public byte[] generateQr(String userId) {
         try {
-        MultiFormatWriter writer = new MultiFormatWriter();
+            MultiFormatWriter writer = new MultiFormatWriter();
 
-        String content = qrProperties.getLinkPattern().formatted(userId); // https://unitap.ru/card/%s -> https://unitap.ru/card/{userId}
+            String content = qrProperties.getLinkPattern().formatted(userId); // https://unitap.ru/card/%s -> https://unitap.ru/card/{userId}
 
             BitMatrix matrix = writer.encode(
                     content,

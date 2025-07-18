@@ -1,7 +1,7 @@
 package com.unitap.controller;
 
 import com.unitap.dto.response.CardResponse;
-import com.unitap.service.impl.BaseCardService;
+import com.unitap.service.CardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class CardController {
 
-    private final BaseCardService cardService;
+    private final CardService cardService;
 
     @GetMapping("/{userId}")
     @ResponseStatus(HttpStatus.OK)
