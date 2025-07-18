@@ -2,6 +2,7 @@ package ru.unitap.profile.repository.impl;
 
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.Firestore;
+import com.google.cloud.firestore.QuerySnapshot;
 import com.google.cloud.firestore.WriteResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,7 +25,20 @@ public class BusinessCardRepositoryImpl implements BusinessCardRepository {
   @Override
   public BusinessCardEntity save(BusinessCardEntity businessCard) {
     try {
-      String documentId = UUID.randomUUID().toString();
+      ApiFuture<QuerySnapshot> queryFuture = firestore.collection(collectionName)
+        .whereEqualTo("userId", businessCard.getUserId())
+        .get();
+
+      QuerySnapshot snapshot = queryFuture.get();
+
+      String documentId;
+
+      if (!snapshot.isEmpty()) {
+        documentId = snapshot.getDocuments().getFirst().getId();
+      } else {
+        documentId = UUID.randomUUID().toString();
+      }
+
       businessCard.setDocumentId(documentId);
 
       ApiFuture<WriteResult> writeFuture = firestore.collection(collectionName)
