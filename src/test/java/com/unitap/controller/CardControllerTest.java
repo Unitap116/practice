@@ -26,7 +26,7 @@ import static org.mockito.Mockito.when;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles(profiles = "test")
-public class CardControllerUnitTest {
+public class CardControllerTest {
 
     @Mock
     private Firestore firestore;

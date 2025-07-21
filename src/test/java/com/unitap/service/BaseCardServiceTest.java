@@ -130,7 +130,7 @@ public class BaseCardServiceTest {
         String expectedId = UUID.randomUUID().toString();
         String expectedResult = qrProperties.getLinkPattern().formatted(expectedId);
 
-        /* TODO first of all - encode message and after it decode and compare with first version */
+        /* first of all - encode message and after it decode and compare with first version */
         byte[] actualResult = qrService.generateQr(expectedId);
         String actualResultString = decodeQrCode(actualResult);
 
