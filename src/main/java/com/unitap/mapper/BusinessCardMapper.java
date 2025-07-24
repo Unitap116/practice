@@ -1,8 +1,8 @@
 package com.unitap.mapper;
 
+import com.unitap.dto.response.BusinessCardResponseDto;
+import com.unitap.entity.BusinessCardEntity;
 import org.mapstruct.Mapper;
-import ru.unitap.profile.dto.response.BusinessCardResponseDto;
-import ru.unitap.profile.entity.BusinessCardEntity;
 
 @Mapper(componentModel = "spring")
 public interface BusinessCardMapper {

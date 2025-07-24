@@ -1,17 +1,18 @@
-package ru.unitap.profile;
+package com.unitap.service;
 
+import com.unitap.dto.request.AvatarUploadRequestDto;
+import com.unitap.dto.request.ProfileUpdateRequestDto;
+import com.unitap.dto.response.ProfileResponseDto;
+import com.unitap.entity.ProfileEntity;
+import com.unitap.exception.profile.ProfileNotFoundException;
+import com.unitap.mapper.ProfileMapper;
+import com.unitap.repository.ProfileRepository;
+import com.unitap.service.impl.ProfileServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
-import ru.unitap.profile.dto.request.AvatarUploadRequestDto;
-import ru.unitap.profile.dto.request.ProfileUpdateRequestDto;
-import ru.unitap.profile.dto.response.ProfileResponseDto;
-import ru.unitap.profile.entity.ProfileEntity;
-import ru.unitap.profile.exception.model.ProfileNotFoundException;
-import ru.unitap.profile.mapper.ProfileMapper;
-import ru.unitap.profile.repository.ProfileRepository;
-import ru.unitap.profile.service.impl.ProfileServiceImpl;
+
 
 import java.util.Optional;
 import java.util.UUID;

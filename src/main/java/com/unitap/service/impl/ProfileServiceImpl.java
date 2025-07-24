@@ -4,6 +4,7 @@ import com.unitap.dto.request.AvatarUploadRequestDto;
 import com.unitap.dto.request.ProfileUpdateRequestDto;
 import com.unitap.dto.response.ProfileResponseDto;
 import com.unitap.entity.ProfileEntity;
+import com.unitap.exception.profile.ProfileNotFoundException;
 import com.unitap.mapper.ProfileMapper;
 import com.unitap.repository.ProfileRepository;
 import com.unitap.service.ProfileService;

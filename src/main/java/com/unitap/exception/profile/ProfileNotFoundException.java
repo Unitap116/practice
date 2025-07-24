@@ -1,4 +1,6 @@
-package com.unitap.exception;
+package com.unitap.exception.profile;
+
+import com.unitap.exception.NotFoundException;
 
 public class ProfileNotFoundException extends NotFoundException {
 

@@ -1,17 +1,18 @@
-package ru.unitap.profile;
+package com.unitap.service;
 
+import com.unitap.dto.response.BusinessCardResponseDto;
+import com.unitap.entity.BusinessCardEntity;
+import com.unitap.exception.profile.TemplateNotFoundException;
+import com.unitap.mapper.BusinessCardMapper;
+import com.unitap.repository.BusinessCardRepository;
+import com.unitap.repository.TemplateRepository;
+import com.unitap.service.impl.BusinessCardServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import ru.unitap.profile.dto.response.BusinessCardResponseDto;
-import ru.unitap.profile.entity.BusinessCardEntity;
-import ru.unitap.profile.exception.model.TemplateNotFoundException;
-import ru.unitap.profile.mapper.BusinessCardMapper;
-import ru.unitap.profile.repository.BusinessCardRepository;
-import ru.unitap.profile.repository.TemplateRepository;
-import ru.unitap.profile.service.impl.BusinessCardServiceImpl;
+
 
 import java.time.Instant;
 import java.util.Optional;

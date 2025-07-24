@@ -2,6 +2,7 @@ package com.unitap.service.impl;
 
 import com.unitap.dto.response.BusinessCardResponseDto;
 import com.unitap.entity.BusinessCardEntity;
+import com.unitap.exception.profile.TemplateNotFoundException;
 import com.unitap.mapper.BusinessCardMapper;
 import com.unitap.repository.BusinessCardRepository;
 import com.unitap.repository.TemplateRepository;
