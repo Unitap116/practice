@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@RequestMapping("/card")
+@RequestMapping("/api/v1/card")
 @Tag(name = "Card", description = "Describing endpoints that familiar to cards")
 public interface CardApi {
 

@@ -14,5 +14,5 @@ jwt:
     ttl: ${JWT_REFRESH_TTL}
 
 qr:
-  link-pattern: https://unitap.ru/card/%s # сеттим через .formatted() у класса String
+  link-pattern: https://unitap.ru/api/v1/card/%s # сеттим через .formatted() у класса String
 

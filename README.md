@@ -2,7 +2,7 @@
 
 ## Эндпоинты
 
-## POST /api/v1/register
+### POST /api/v1/register
 
 Регистрация нового пользователя.
 
@@ -29,7 +29,7 @@
 
 ---
 
-## GET /api/v1/admin/users
+### GET /api/v1/admin/users
 
 Получить список всех зарегистрированных пользователей (доступно только админам).
 
@@ -59,7 +59,7 @@ Authorization: Bearer <access_token>
 
 ---
 
-## DELETE /api/v1/admin/users/{id}
+### DELETE /api/v1/admin/users/{id}
 
 Удалить пользователя по ID (доступно только админам).
 
@@ -79,7 +79,7 @@ Authorization: Bearer <access_token>
 - 404 Not Found — Пользователь не найден
 
 ### Получение визитки
-- **GET** `/card/{userId}`
+- **GET** `/api/v1/card/{userId}`
     - Описание: Получает визитку пользователя по его ID
     - Параметры:
         - `userId` - идентификатор пользователя
@@ -102,10 +102,10 @@ Authorization: Bearer <access_token>
         - `403 Forbidden`: CardAccessDeniedException - если визитка не публичная (isPublic = false)
 
 ### Получение QR-кода визитки
-- **GET** `/card/{userId}/qr`
+- **GET** `/api/v1/card/{userId}/qr`
     - Описание: Генерирует QR-код со ссылкой на визитку пользователя
     - Параметры:
         - `userId` - идентификатор пользователя
     - Ответ:
         - `image/png`: Массив байтов PNG изображения QR-кода
-        - Содержит ссылку: `/card/{userId}`
+        - Содержит ссылку: `/api/v1/card/{userId}`
