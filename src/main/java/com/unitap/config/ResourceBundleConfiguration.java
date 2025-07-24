@@ -1,4 +1,4 @@
-package ru.unitap.profile.config;
+package com.unitap.config;
 
 import lombok.val;
 import org.springframework.beans.factory.annotation.Value;

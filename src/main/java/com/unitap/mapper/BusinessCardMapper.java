@@ -1,4 +1,4 @@
-package ru.unitap.profile.mapper;
+package com.unitap.mapper;
 
 import org.mapstruct.Mapper;
 import ru.unitap.profile.dto.response.BusinessCardResponseDto;

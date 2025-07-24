@@ -1,17 +1,27 @@
 spring:
   application:
-    name: summer-practice
+    name: unitap
   cloud:
     gcp:
       project-id: ${FIREBASE_PROJECT_ID}
       credentials:
-        location: ${GOOGLE_CREDENTIALS_LOCATION:classpath:unitap-firebase-key.json}
+        location: ${GOOGLE_CREDENTIALS_LOCATION:classpath:firebase-credentials.json}
 jwt:
   secret: ${JWT_SECRET}
   access-token:
     ttl: ${JWT_ACCESS_TTL}
   refresh-token:
     ttl: ${JWT_REFRESH_TTL}
+
+firestore:
+  path: ${PATH_TO_JSON}
+  collection:
+    profile: profiles
+    business-card: business_card
+    template: template
+
+locale:
+  basename: messages
 
 qr:
   link-pattern: https://unitap.ru/api/v1/card/%s # сеттим через .formatted() у класса String

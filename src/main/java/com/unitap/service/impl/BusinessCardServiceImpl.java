@@ -1,14 +1,14 @@
-package ru.unitap.profile.service.impl;
+package com.unitap.service.impl;
 
+import com.unitap.dto.response.BusinessCardResponseDto;
+import com.unitap.entity.BusinessCardEntity;
+import com.unitap.mapper.BusinessCardMapper;
+import com.unitap.repository.BusinessCardRepository;
+import com.unitap.repository.TemplateRepository;
+import com.unitap.service.BusinessCardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.unitap.profile.dto.response.BusinessCardResponseDto;
-import ru.unitap.profile.entity.BusinessCardEntity;
-import ru.unitap.profile.exception.model.TemplateNotFoundException;
-import ru.unitap.profile.mapper.BusinessCardMapper;
-import ru.unitap.profile.repository.BusinessCardRepository;
-import ru.unitap.profile.repository.TemplateRepository;
-import ru.unitap.profile.service.BusinessCardService;
+
 
 import java.time.Instant;
 import java.util.UUID;

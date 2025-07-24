@@ -1,5 +1,11 @@
-package ru.unitap.profile.controller;
+package com.unitap.controller;
 
+import com.unitap.dto.request.AvatarUploadRequestDto;
+import com.unitap.dto.request.ProfileUpdateRequestDto;
+import com.unitap.dto.response.BusinessCardResponseDto;
+import com.unitap.dto.response.ProfileResponseDto;
+import com.unitap.service.BusinessCardService;
+import com.unitap.service.ProfileService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -15,12 +21,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import ru.unitap.profile.dto.request.AvatarUploadRequestDto;
-import ru.unitap.profile.dto.request.ProfileUpdateRequestDto;
-import ru.unitap.profile.dto.response.BusinessCardResponseDto;
-import ru.unitap.profile.dto.response.ProfileResponseDto;
-import ru.unitap.profile.service.BusinessCardService;
-import ru.unitap.profile.service.ProfileService;
 
 import java.util.UUID;
 

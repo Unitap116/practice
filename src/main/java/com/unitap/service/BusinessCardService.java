@@ -1,6 +1,6 @@
-package ru.unitap.profile.service;
+package com.unitap.service;
 
-import ru.unitap.profile.dto.response.BusinessCardResponseDto;
+import com.unitap.dto.response.BusinessCardResponseDto;
 
 import java.util.UUID;
 

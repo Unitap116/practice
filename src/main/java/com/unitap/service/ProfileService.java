@@ -1,8 +1,9 @@
-package ru.unitap.profile.service;
+package com.unitap.service;
 
-import ru.unitap.profile.dto.request.AvatarUploadRequestDto;
-import ru.unitap.profile.dto.request.ProfileUpdateRequestDto;
-import ru.unitap.profile.dto.response.ProfileResponseDto;
+import com.unitap.dto.request.ProfileUpdateRequestDto;
+import com.unitap.dto.request.AvatarUploadRequestDto;
+import com.unitap.dto.response.ProfileResponseDto;
+
 
 import java.util.UUID;
 

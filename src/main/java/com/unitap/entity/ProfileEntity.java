@@ -1,4 +1,4 @@
-package ru.unitap.profile.entity;
+package com.unitap.entity;
 
 import com.google.cloud.firestore.annotation.DocumentId;
 import lombok.AllArgsConstructor;

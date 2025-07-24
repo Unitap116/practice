@@ -1,4 +1,4 @@
-package ru.unitap.profile.dto.request;
+package com.unitap.dto.request;
 
 import lombok.Builder;
 

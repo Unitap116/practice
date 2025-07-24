@@ -1,13 +1,12 @@
-package ru.unitap.profile.repository.impl;
+package com.unitap.repository.impl;
 
 import com.google.api.core.ApiFuture;
-import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.QuerySnapshot;
+import com.unitap.repository.TemplateRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
-import ru.unitap.profile.repository.TemplateRepository;
 
 import java.util.Optional;
 import java.util.UUID;

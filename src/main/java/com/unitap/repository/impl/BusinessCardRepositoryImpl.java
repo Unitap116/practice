@@ -1,14 +1,15 @@
-package ru.unitap.profile.repository.impl;
+package com.unitap.repository.impl;
 
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.QuerySnapshot;
 import com.google.cloud.firestore.WriteResult;
+import com.unitap.entity.BusinessCardEntity;
+import com.unitap.repository.BusinessCardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
-import ru.unitap.profile.entity.BusinessCardEntity;
-import ru.unitap.profile.repository.BusinessCardRepository;
+
 
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;

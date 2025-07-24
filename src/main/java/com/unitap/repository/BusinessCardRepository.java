@@ -1,6 +1,7 @@
-package ru.unitap.profile.repository;
+package com.unitap.repository;
 
-import ru.unitap.profile.entity.BusinessCardEntity;
+
+import com.unitap.entity.BusinessCardEntity;
 
 public interface BusinessCardRepository {
 

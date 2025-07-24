@@ -1,4 +1,4 @@
-package ru.unitap.profile.exception.model;
+package com.unitap.exception;
 
 public class ProfileNotFoundException extends NotFoundException {
 

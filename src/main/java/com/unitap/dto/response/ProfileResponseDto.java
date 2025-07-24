@@ -1,4 +1,4 @@
-package ru.unitap.profile.dto.response;
+package com.unitap.dto.response;
 
 import lombok.Builder;
 

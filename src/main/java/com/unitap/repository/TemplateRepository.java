@@ -1,4 +1,4 @@
-package ru.unitap.profile.repository;
+package com.unitap.repository;
 
 import java.util.Optional;
 import java.util.UUID;

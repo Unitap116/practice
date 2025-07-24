@@ -1,15 +1,14 @@
-package ru.unitap.profile.service.impl;
+package com.unitap.service.impl;
 
+import com.unitap.dto.request.AvatarUploadRequestDto;
+import com.unitap.dto.request.ProfileUpdateRequestDto;
+import com.unitap.dto.response.ProfileResponseDto;
+import com.unitap.entity.ProfileEntity;
+import com.unitap.mapper.ProfileMapper;
+import com.unitap.repository.ProfileRepository;
+import com.unitap.service.ProfileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.unitap.profile.dto.request.AvatarUploadRequestDto;
-import ru.unitap.profile.dto.request.ProfileUpdateRequestDto;
-import ru.unitap.profile.dto.response.ProfileResponseDto;
-import ru.unitap.profile.entity.ProfileEntity;
-import ru.unitap.profile.exception.model.ProfileNotFoundException;
-import ru.unitap.profile.mapper.ProfileMapper;
-import ru.unitap.profile.repository.ProfileRepository;
-import ru.unitap.profile.service.ProfileService;
 
 import java.util.UUID;
 

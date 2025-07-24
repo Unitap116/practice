@@ -1,6 +1,8 @@
-package ru.unitap.profile.repository;
+package com.unitap.repository;
 
-import ru.unitap.profile.entity.ProfileEntity;
+
+
+import com.unitap.entity.ProfileEntity;
 
 import java.util.Optional;
 import java.util.UUID;
