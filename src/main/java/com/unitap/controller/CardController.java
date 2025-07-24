@@ -1,27 +1,23 @@
 package com.unitap.controller;
 
+import com.unitap.api.CardApi;
 import com.unitap.dto.response.CardResponse;
 import com.unitap.service.CardService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
-@RequestMapping("/card")
 @RestController
-public class CardController {
+public class CardController implements CardApi {
 
     private final CardService cardService;
 
-    @GetMapping("/{userId}")
-    @ResponseStatus(HttpStatus.OK)
+    @Override
     public CardResponse getCard(@PathVariable String userId) {
         return cardService.getById(userId);
     }
 
-    @GetMapping(value = "/{userId}/qr", produces = MediaType.IMAGE_PNG_VALUE)
-    @ResponseStatus(HttpStatus.OK)
+    @Override
     public byte[] getCardQr(@PathVariable String userId) {
         return cardService.getQrById(userId);
     }
